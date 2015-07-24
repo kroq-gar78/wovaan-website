@@ -49,7 +49,7 @@ Returns the time spent solving, i.e., after inspection.
 def prompt_solve(inspection_time):
     penalty = 0 #0 if none, 1 if +2, -1 if DNF
     stop = []
-    Thread(target=(lambda stop:stop.append(input())), args=stop,).start()
+    Thread(target=(lambda stop:stop.append(input())), args=(stop,)).start()
     start = time()
     while not stop:
         if inspection_time > time()-start:
@@ -62,7 +62,7 @@ def prompt_solve(inspection_time):
             print('%-5s' % 'DNF', end='\r')
     
     stop = []
-    Thread(target=(lambda stop:stop.append(input())), args=stop,).start()
+    Thread(target=(lambda stop:stop.append(input())), args=(stop,)).start()
     start = time()
     ret = 0
     while not stop:
@@ -92,7 +92,7 @@ def avg(n = 0):
         if x-dnfs > 0:
             print('Solve %d - Current average: %.2f' % (x+1, sum(arr)/(x-dnfs)))
         else:
-            print('Solve %d' % x+1)
+            print('Solve %d' % (x+1))
         
         print(scramble_cube(), end='')
         if input() == 'end':
