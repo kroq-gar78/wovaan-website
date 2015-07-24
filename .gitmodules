@@ -1,0 +1,3 @@
+[submodule "PyCuber"]
+	path = PyCuber
+	url = git@github.com:kroq-gar78/PyCuber.git
