@@ -1,0 +1,17 @@
+{
+  "name": "Wovaan Timer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kroq-gar78/wovaan-website",
+  "authors": [
+    "Ritvik <ritu6ritu@gmail.com>"
+  ],
+  "description": "Simple Rubiks Timer",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
