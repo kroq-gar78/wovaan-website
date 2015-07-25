@@ -35,27 +35,31 @@ function setTimer(){
 
 $(document).ready(
 function () {
-    $(document).bind('keydown', 'space', function () {
-        if(start == "started"){
-          clearTimeout(timeInterval);
-          start = "off";
-          return;
-        }
-        if(start == "off"){
-          start = "held";
-          $('#timer').text("Let go to begin");
-          return;
+    $(document).bind('keydown', function (e) {
+      if(e.keyCode == 32){
+          if(start == "started"){
+            clearTimeout(timeInterval);
+            start = "off";
+            return;
+          }
+          if(start == "off"){
+            start = "held";
+            $('#timer').text("Let go to begin");
+            return;
+          }
         }
     });
-    $(document).bind('keyup', 'space', function(){
-      if(start == "held"){
-        minutes = 0;
-        seconds = 0;
-        milliseconds = 0;
-        $('#timer').text(toMMSSMMMM(milliseconds, seconds, minutes));
-        start = "started";
-        setTimer();
-        return;
+    $(document).bind('keyup', function(e){
+      if(e.keyCode == 32){
+        if(start == "held"){
+          minutes = 0;
+          seconds = 0;
+          milliseconds = 0;
+          $('#timer').text(toMMSSMMMM(milliseconds, seconds, minutes));
+          start = "started";
+          setTimer();
+          return;
+        }
       }
     });
 });
