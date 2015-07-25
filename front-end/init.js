@@ -43,6 +43,7 @@ function () {
         }
         if(start == "off"){
           start = "held";
+          $('#timer').text("Let go to begin");
           return;
         }
     });
