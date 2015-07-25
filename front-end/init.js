@@ -11,7 +11,7 @@ function toMMSSMMMM(milli, sec, min){
   if(milli<10) {milli = "00"+milli;}
   else if (milli<100) {milli = "0"+milli;}
 
-  return min+":"+sec+":"+milli;
+  return (min+":"+sec+":"+milli).split('').join(' ');
 }
 
 function timer(){

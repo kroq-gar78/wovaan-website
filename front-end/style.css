@@ -8,8 +8,18 @@
     src: url("slimjoe.otf") format("opentype");
 }
 
+@font-face {
+    font-family: lekton;
+    src: url("lekton.regular.ttf");
+}
+
+@font-face {
+    font-family: oslo-ii;
+    src: url("oslo-ii.regular.ttf");
+}
+
 body, html{
-  font-family: slimjoe !important ;
+  font-family: oslo-ii !important ;
   overflow-x: hidden;
   margin: 0px;
   background-color: #212121;
@@ -22,9 +32,38 @@ body, html{
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
 .time {
+  display: inline;
   font-size: 16rem;
+  float:left;
+  text-shadow: 2px 2px #595959;
+}
+
+nav{
+  position: fixed;
+  margin-top: -10px;
+  border-bottom: solid #595959;
+  width: 100%;
+  z-index:999;
+}
+
+nav .logo{
+  float:left;
+}
+
+nav .wovan{
+  font-family: bigjohn;
+}
+
+nav .timer{
+  font-family: slimjoe;
+}
+
+.past-times{
+  background: #e5e5e5;
+  width:100px;
+  float:right;
+  position:fixed;
 }
