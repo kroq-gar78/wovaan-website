@@ -3,31 +3,31 @@ from random import randrange, choice
 from time import time
 from threading import Thread
 
-'''Returns a scramble consiting of a given number of moves which are
-randomly selected from a given array of faces and a given array of 
+'''Returns a scramble consisting of a given number of moves which are
+randomly selected from a given array of faces and a given array of
 modifiers, e.g., no modifier (), prime ('), and two (2).
 
 If the opposite_faces is true, faces are chosen such that no adjacent
 moves involve the same or opposite sides.
-Opposite sides are determined from the array of given sides, 
+Opposite sides are determined from the array of given sides,
 i.e., elements that are half the array's length away from each other.
 
 Defaults to 3x3x3 with no opposite faces.
 '''
-def scramble_cube(moves = 25, faces = 'FRUBLD', 
+def scramble_cube(moves = 25, faces = 'FRUBLD',
         modifiers = ["", "'", "2"], opposite_faces = False):
     facelen = len(faces)
     halflen = facelen >> 1
     ret_sequence = ''
     last = 0
     pot = 0
-    
+
     for x in range(moves):
-        while pot == last or (not opposite_faces and 
+        while pot == last or (not opposite_faces and
                 (pot == last-halflen or pot == last+halflen)):
             pot = randrange(facelen)
         last = pot
-        
+
         ret_sequence += faces[pot] + choice(modifiers) + " "
     return ret_sequence
 
@@ -60,7 +60,7 @@ def prompt_solve(inspection_time):
         else:
             penalty = -1
             print('%-5s' % 'DNF', end='\r')
-    
+
     stop = []
     Thread(target=(lambda stop:stop.append(input())), args=(stop,)).start()
     start = time()
@@ -72,7 +72,10 @@ def prompt_solve(inspection_time):
         else:
             print('%.2f  +2' % ret, end='\r')
     print('%-10s' % '\r')
-    return ret if penalty == 0 else ret+2 if penalty > 0 else None
+
+    if penalty == 0: return ret
+    elif penality > 0: return ret+2
+    else: return None
 
 '''Prompts for an inspection time to use over the whole session once,
 then provides a scramble, waits for the enter key, and calls
@@ -93,20 +96,21 @@ def avg(n = 0):
             print('Solve %d - Current average: %.2f' % (x+1, sum(arr)/(x-dnfs)))
         else:
             print('Solve %d' % (x+1))
-        
+
         print(scramble_cube(), end='')
         if input() == 'end':
             break
-        
+
         current_solve = prompt_solve(inspection_time)
         if current_solve != None:
             arr.append(current_solve)
         else:
             dnfs+=1
         x+=1
-    
+
     ret_avg = sum(arr)/(x-dnfs)
     print('Average of %d: %.2f' % (x, ret_avg))
     return ret_avg
 
-avg()
+if __name__=="__main__":
+    avg()
