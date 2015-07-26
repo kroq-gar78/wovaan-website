@@ -8,15 +8,14 @@ var milliseconds = 0,
 function toMMSSMMMM(milli, sec, min){
   if(sec<10) {sec = "0"+sec;}
   if(min<10) {min = "0"+min;}
-  if(milli<10) {milli = "00"+milli;}
-  else if (milli<100) {milli = "0"+milli;}
+  if(milli<10) {milli = "0"+milli;}
 
   return (min+":"+sec+":"+milli).split('').join(' ');
 }
 
 function timer(){
   milliseconds++;
-  if(milliseconds>=1000){
+  if(milliseconds>=100){
     milliseconds=0;
     seconds++;
     if(seconds>=60){
@@ -30,7 +29,7 @@ function timer(){
 }
 
 function setTimer(){
-  timeInterval = setTimeout(timer, 1);
+  timeInterval = setTimeout(timer, 10);
 }
 
 $(document).ready(
