@@ -61,10 +61,8 @@ nav .timer{
 .time {
   display: inline;
   font-size: 16rem;
-  float:left;
   text-shadow: 2px 2px #595959;
 }
-
 
 .past-times{
   right:0;
