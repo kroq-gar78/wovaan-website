@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.http import HttpResponse
+
+from wovaan.scrambler import scramble_cube
+
+def hello(request):
+    return HttpResponse(scramble_cube())
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'.*', hello),
 ]
