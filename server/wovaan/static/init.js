@@ -30,7 +30,7 @@ function fetchScramble()
 {
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/updatescramble/", // TODO: change URL when moved into django 
+    url: "http://127.0.0.1:8000/updatescramble/", // TODO: change URL when moved into django
     datatype: "html",
     data: "",
     success: function(result)
