@@ -17,14 +17,38 @@ function doOnClick()
   });
 }
 </script>
+{% load staticfiles %}
+<link type="text/css" rel="stylesheet" href="{% static "bootstrap.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "style.css" %}">
+
 </head>
 <body>
-
-<div id="scramble"></div>
-<br/>
-<input type="button" value="Update scramble" onclick="doOnClick(); return false;">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+  <nav>
+    <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer</timer></h1>
+  </nav>
+  <div class="main">
+    <div class="centered">
+      <br/>
+      <h1 class="time" id="timer">Hold Space</h1>
+      <h2 class="scrambles" id="scramble">U' Fw' Lw' R B2 U' B' D2 Bw' L2 Bw Uw F U2 D B2 U' Bw2 L2 D Bw' Dw' Uw D2 Lw2 </h2>
+    </div>
+    <div class="past-times">
+      <h1 class="logo"> Past Times </h1>
+      <ul>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+        <li> 01:02:938 </li>
+      </ul>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="init.js"></script>
 </body>
 </html>
