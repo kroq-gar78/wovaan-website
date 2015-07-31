@@ -16,12 +16,20 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 
 from wovaan.scrambler import scramble_cube
 
 def hello(request):
+    return render_to_response('index.html')
+
+# TODO: remove the CSRF exempt stuff (not /that/ necessary, but still)
+@csrf_exempt
+def give_new_scramble(request):
     return HttpResponse(scramble_cube())
 
 urlpatterns = [
-    url(r'.*', hello),
+    url(r'^updatescramble/?$', give_new_scramble),
+    url(r'^.*/?$', hello),
 ]
