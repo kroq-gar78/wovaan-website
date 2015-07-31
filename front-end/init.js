@@ -32,12 +32,17 @@ function () {
       if(e.keyCode == 32){
           if(start == "started"){
             clearInterval(timeInterval);
-            start = "off";
+            start = "show-time";
             return;
           }
           if(start == "off"){
             start = "held";
             $('#timer').text("Let go to begin");
+            return;
+          }
+          if(start == "show-time"){
+            $('#timer').text("Hold Space");
+            start = "off";
             return;
           }
         }
