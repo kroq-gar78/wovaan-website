@@ -26,6 +26,20 @@ function setTimer(){
   timeInterval = setInterval(timer, 1);
 }
 
+function fetchScramble()
+{
+  $.ajax({
+    type: "POST",
+    url: "http://127.0.0.1:8000/updatescramble/", // TODO: change URL when moved into django 
+    datatype: "html",
+    data: "",
+    success: function(result)
+    {
+      $("#scrambles").html(result);
+    }
+  });
+}
+
 $(document).ready(
 function () {
     $(document).bind('keydown', function (e) {
@@ -33,6 +47,7 @@ function () {
           if(start == "started"){
             clearInterval(timeInterval);
             start = "show-time";
+            fetchScramble();
             return;
           }
           if(start == "off"){
@@ -58,4 +73,7 @@ function () {
         }
       }
     });
+
+    // get the initial scramble
+    fetchScramble();
 });
