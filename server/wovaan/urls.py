@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 from wovaan.scrambler import scramble_cube
 
 def hello(request):
-    return render_to_response('index.html')
+    return render_to_response('index.html', context={'initialScramble': scramble_cube()} )
 
 # TODO: remove the CSRF exempt stuff (not /that/ necessary, but still)
 @csrf_exempt
