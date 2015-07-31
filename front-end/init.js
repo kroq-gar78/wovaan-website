@@ -1,6 +1,5 @@
-var milliseconds = 0,
-    seconds = 0,
-    minutes = 0,
+var timeStart,
+    timeCurrent,
     start = "off",
     timeInterval;
 
@@ -8,28 +7,23 @@ var milliseconds = 0,
 function toMMSSMMMM(milli, sec, min){
   if(sec<10) {sec = "0"+sec;}
   if(min<10) {min = "0"+min;}
-  if(milli<10) {milli = "0"+milli;}
+  if(milli<10) {milli = "00"+milli;}
+  else if(milli<100) {milli = "0"+milli;}
 
-  return (min+":"+sec+":"+milli).split('').join(' ');
+  return (min+":"+sec+"."+milli).split('').join(' ');
 }
 
 function timer(){
-  milliseconds++;
-  if(milliseconds>=100){
-    milliseconds=0;
-    seconds++;
-    if(seconds>=60){
-      seconds=0;
-      minutes++;
-    }
-  }
+  var timeElapsed = new Date(new Date() - timeStart)
+    , minutes = timeElapsed.getUTCMinutes()
+    , seconds = timeElapsed.getUTCSeconds()
+    , milliseconds = timeElapsed.getUTCMilliseconds()
 
   $('#timer').text(toMMSSMMMM(milliseconds, seconds, minutes));
-  setTimer();
 }
 
 function setTimer(){
-  timeInterval = setTimeout(timer, 10);
+  timeInterval = setInterval(timer, 1);
 }
 
 $(document).ready(
@@ -37,7 +31,7 @@ function () {
     $(document).bind('keydown', function (e) {
       if(e.keyCode == 32){
           if(start == "started"){
-            clearTimeout(timeInterval);
+            clearInterval(timeInterval);
             start = "off";
             return;
           }
@@ -51,10 +45,8 @@ function () {
     $(document).bind('keyup', function(e){
       if(e.keyCode == 32){
         if(start == "held"){
-          minutes = 0;
-          seconds = 0;
-          milliseconds = 0;
-          $('#timer').text(toMMSSMMMM(milliseconds, seconds, minutes));
+          timeStart = new Date();
+          $('#timer').text(toMMSSMMMM(0, 0, 0));
           start = "started";
           setTimer();
           return;
