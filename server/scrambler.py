@@ -1,116 +1,75 @@
 #!/usr/bin/env python3
 from random import randrange, choice
-from time import time
-from threading import Thread
+
+'''For any cube of dimensions NxNxN, returns a scramble consisting of a 
+given number of moves in WCA notation for 2x2x2-4x4x4 and prefix 
+notation for 4x4x4 and bigger.
+
+The same face will not be moved twice in a row and no two adjacent turns
+will result in the equivalent of a cube rotation.
+
+Defaults to 3x3x3.
+'''
+def scramble_cube(n = 3, moves = 25):
+    assert n > 1
+    half = (n >> 1)
+    ret = ''
+    last = [0, 0, 0] #Turns are of form [face, depth, direction]
+    opposite_last = [0, 0, 0]
+    turn = [0, 0, 0]
+    
+    for x in range(moves):
+        while turn[0] == last[0] or (turn[0] == opposite_last[0] and 
+                 turn[2] == opposite_last[2] == half and (half&1) == 0):
+            turn = [randrange(6), randrange(half)+1, randrange(3)]
+        
+        last = turn
+        opposite_last = [turn[0]-3 if turn[0]-3 > 0 else turn[0]+3,
+                        n-turn[1],
+                        0 if turn[2] == 1 else 1 if turn[2] == 0 else 2]
+        
+        if turn[1] > 2: 
+            ret += str(turn[1]) 
+        ret += 'FRUBLD'[turn[0]]
+        if turn[1] == 2 and n == 4: 
+            ret += 'w'
+        ret += ('', '\'', '2')[turn[2]]
+        ret += ' '
+    
+    return ret
+
 
 '''Returns a scramble consisting of a given number of moves which are
-randomly selected from a given array of faces and a given array of
+randomly selected from a given array of faces and a given array of 
 modifiers, e.g., no modifier (), prime ('), and two (2).
 
-If the opposite_faces is true, faces are chosen such that no adjacent
-moves involve the same or opposite sides.
-Opposite sides are determined from the array of given sides,
-i.e., elements that are half the array's length away from each other.
+The same face will not be moved twice in a row.
 
-Defaults to 3x3x3 with no opposite faces.
+Defaults to megaminx.
 '''
-def scramble_cube(moves = 25, faces = 'FRUBLD',
-        modifiers = ["", "'", "2"], opposite_faces = False):
+def scramble_non_cube(
+        moves = 25, 
+        faces = ['U', 'U\'', 'R++', 'R--', 'D++', 'D--'],
+        modifiers = []):
     facelen = len(faces)
-    halflen = facelen >> 1
-    ret_sequence = ''
+    half = facelen >> 1
+    ret = ''
     last = 0
-    pot = 0
-
+    turn = 0
+    
     for x in range(moves):
-        while pot == last or (not opposite_faces and
-                (pot == last-halflen or pot == last+halflen)):
+        while turn == last:
             pot = randrange(facelen)
         last = pot
+        
+        ret += faces[pot] + choice(modifiers) + " "
+    return ret
 
-        ret_sequence += faces[pot] + choice(modifiers) + " "
-    return ret_sequence
-
-'''Prints a given prompt string and returns the user's input as a float.
-If invalid or no input, returns a given default.
-'''
-def prompt_inspection(default = 15, prompt = 'Session inspection time (default 15s): '):
-    print(prompt, end = '')
-    try:
-        return float(input())
-    except:
-        return float(default)
-
-'''Counts down a given inspection time which must be interrupted with
-the enter key to start the timer, then counts up until interrupted
-with enter key again.
-Returns the time spent solving, i.e., after inspection.
-'''
-def prompt_solve(inspection_time):
-    penalty = 0 #0 if none, 1 if +2, -1 if DNF
-    stop = []
-    Thread(target=(lambda stop:stop.append(input())), args=(stop,)).start()
-    start = time()
-    while not stop:
-        if inspection_time > time()-start:
-            print('%-3.2f  ' % (inspection_time-time()+start), end='\r')
-        elif inspection_time+2 > time()-start:
-            penalty = 1
-            print('%-5s' % '+2', end='\r')
-        else:
-            penalty = -1
-            print('%-5s' % 'DNF', end='\r')
-
-    stop = []
-    Thread(target=(lambda stop:stop.append(input())), args=(stop,)).start()
-    start = time()
-    ret = 0
-    while not stop:
-        ret = time()-start
-        if penalty <= 0:
-            print('%.2f    ' % ret, end='\r')
-        else:
-            print('%.2f  +2' % ret, end='\r')
-    print('%-10s' % '\r')
-
-    if penalty == 0: return ret
-    elif penality > 0: return ret+2
-    else: return None
-
-'''Prompts for an inspection time to use over the whole session once,
-then provides a scramble, waits for the enter key, and calls
-prompt_solve n times.
-
-After a given number n solves, prints and returns the session average.
-If n is <= 0, iterates until stopped (this is default behaviour).
-Regardless of the value of n, the average can be calculated and exited
-by typing 'end' insead of a black line after a scramble.
-'''
-def avg(n = 0):
-    arr = []
-    dnfs = 0
-    inspection_time = prompt_inspection()
-    x = 0
-    while x <= n if n > 0 else True:
-        if x-dnfs > 0:
-            print('Solve %d - Current average: %.2f' % (x+1, sum(arr)/(x-dnfs)))
-        else:
-            print('Solve %d' % (x+1))
-
-        print(scramble_cube(), end='')
-        if input() == 'end':
-            break
-
-        current_solve = prompt_solve(inspection_time)
-        if current_solve != None:
-            arr.append(current_solve)
-        else:
-            dnfs+=1
-        x+=1
-
-    ret_avg = sum(arr)/(x-dnfs)
-    print('Average of %d: %.2f' % (x, ret_avg))
-    return ret_avg
-
-if __name__=="__main__":
-    avg()
+if __name__=='__main__':
+    import sys
+    l = len(sys.argv)
+    if l >= 2 and sys.argv[1] == 'noncube':
+        for x in range(10):
+            print(scramble_non_cube())
+    for x in range(10 if l <= 2 else int(sys.argv[2])):
+        print(scramble_cube(3 if l <= 1 else int(sys.argv[1]), 25 if l <= 3 else int(sys.argv[3])))
