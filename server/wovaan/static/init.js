@@ -1,7 +1,9 @@
 var timeStart,
     timeCurrent,
     start = "off",
-    timeInterval;
+    timeInterval,
+    nextScramble;
+
 
 
 function toMMSSMMMM(milli, sec, min){
@@ -35,7 +37,7 @@ function fetchScramble()
     data: "",
     success: function(result)
     {
-      $("#scramble").html(result);
+      nextScramble = result;
     }
   });
 }
@@ -47,7 +49,6 @@ function () {
           if(start == "started"){
             clearInterval(timeInterval);
             start = "show-time";
-            fetchScramble();
             return;
           }
           if(start == "off"){
@@ -57,6 +58,7 @@ function () {
           }
           if(start == "show-time"){
             $('#timer').text("Hold Space");
+            $("#scramble").text(nextScramble);
             start = "off";
             return;
           }
@@ -69,6 +71,7 @@ function () {
           $('#timer').text(toMMSSMMMM(0, 0, 0));
           start = "started";
           setTimer();
+          fetchScramble();
           return;
         }
       }
