@@ -2,7 +2,7 @@
 <head>
 <title>Django AJAX Scramble Test</title>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 function doOnClick()
 {
   $.ajax({
@@ -16,7 +16,7 @@ function doOnClick()
     }
   });
 }
-</script>
+</script>-->
 {% load staticfiles %}
 <link type="text/css" rel="stylesheet" href="{% static "bootstrap.css" %}">
 <link type="text/css" rel="stylesheet" href="{% static "style.css" %}">
@@ -49,6 +49,6 @@ function doOnClick()
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="init.js"></script>
+  <script src="{% static "init.js" %}"></script>
 </body>
 </html>

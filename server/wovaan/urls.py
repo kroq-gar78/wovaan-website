@@ -33,5 +33,5 @@ def give_new_scramble(request):
 
 urlpatterns = [
     url(r'^updatescramble/?$', give_new_scramble),
-    url(r'^.*/?$', hello),
-]
+    url(r'^/?$', hello),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
