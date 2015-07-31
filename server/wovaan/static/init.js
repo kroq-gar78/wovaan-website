@@ -73,7 +73,4 @@ function () {
         }
       }
     });
-
-    // get the initial scramble
-    fetchScramble();
 });
