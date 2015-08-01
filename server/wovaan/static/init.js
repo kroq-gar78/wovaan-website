@@ -48,6 +48,8 @@ function () {
       if(e.keyCode == 32){
           if(start == "started"){
             clearInterval(timeInterval);
+            $("#scramble").text(nextScramble);
+            fetchScramble();
             start = "show-time";
             return;
           }
@@ -58,7 +60,6 @@ function () {
           }
           if(start == "show-time"){
             $('#timer').text("Hold Space");
-            $("#scramble").text(nextScramble);
             start = "off";
             return;
           }
@@ -71,9 +72,10 @@ function () {
           $('#timer').text(toMMSSMMMM(0, 0, 0));
           start = "started";
           setTimer();
-          fetchScramble();
           return;
         }
       }
     });
+
+    fetchScramble(); // keep one scramble cached
 });
