@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.template.context_processors import csrf
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -24,10 +25,11 @@ from django.conf.urls.static import static
 from wovaan.scrambler import scramble_cube
 
 def hello(request):
-    return render_to_response('index.html', context={'initialScramble': scramble_cube()} )
+    c = {}
+    c.update(csrf(request))
+    c['initialScramble'] = scramble_cube()
+    return render_to_response('index.html', context=c)
 
-# TODO: remove the CSRF exempt stuff (not /that/ necessary, but still)
-@csrf_exempt
 def give_new_scramble(request):
     return HttpResponse(scramble_cube())
 
