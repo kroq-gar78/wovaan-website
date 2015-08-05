@@ -14,26 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from django.template.context_processors import csrf
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.conf.urls.static import static
 
-from wovaan.scrambler import scramble_cube
-
-def hello(request):
-    c = {}
-    c.update(csrf(request))
-    c['initialScramble'] = scramble_cube()
-    return render_to_response('index.html', context=c)
-
-def give_new_scramble(request):
-    return HttpResponse(scramble_cube())
-
 urlpatterns = [
-    url(r'^updatescramble/?$', give_new_scramble),
-    url(r'^/?$', hello),
+    url(r'^timer/?', include('timer.urls')),
+    #url(r'^updatescramble/?$', 'timer.give_new_scramble'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -60,7 +60,7 @@ function fetchScramble()
 {
   $.ajax({
     type: "POST",
-    url: "/updatescramble/",
+    url: "/timer/updatescramble/",
     datatype: "html",
     data: "",
     success: function(result)
