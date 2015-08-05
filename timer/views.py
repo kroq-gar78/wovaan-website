@@ -6,6 +6,7 @@ from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 
 from wovaan.scrambler import scramble_cube
+from .models import Solve
 
 def timer_view(request):
     c = {}
@@ -15,3 +16,14 @@ def timer_view(request):
 
 def give_new_scramble(request):
     return HttpResponse(scramble_cube())
+
+def add_solve(request):
+    cubetype = request.POST.get('cubetype')
+    scramble = request.POST.get('scramble')
+    duration = request.POST.get('duration')
+
+    solve = Solve(cubetype=cubetype, scramble=scramble, duration=duration)
+    solve.save()
+
+    return HttpResponse()
+

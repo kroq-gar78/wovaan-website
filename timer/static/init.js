@@ -1,5 +1,5 @@
 var timeStart,
-    timeCurrent,
+    timeElapsed,
     start = "off",
     timeInterval,
     nextScramble;
@@ -44,10 +44,10 @@ function toMMSSMMMM(milli, sec, min){
 }
 
 function timer(){
-  var timeElapsed = new Date(new Date() - timeStart)
+  timeElapsed = new Date(new Date() - timeStart)
     , minutes = timeElapsed.getUTCMinutes()
     , seconds = timeElapsed.getUTCSeconds()
-    , milliseconds = timeElapsed.getUTCMilliseconds()
+    , milliseconds = timeElapsed.getUTCMilliseconds();
 
   $('#timer').text(toMMSSMMMM(milliseconds, seconds, minutes));
 }
@@ -70,6 +70,27 @@ function fetchScramble()
   });
 }
 
+function postSolve()
+{
+  var duration = timeElapsed.getUTCMilliseconds()/1000;
+  duration += timeElapsed.getUTCSeconds();
+  duration += timeElapsed.getUTCMinutes()*60;
+  duration = +duration.toFixed(3); // JS hack to fix floating point precision nonsense
+
+  $.ajax({
+    type: "POST",
+    url: "/timer/addsolve/",
+    datatype: "html",
+    data: {"cubetype": "3x3x3",
+           "scramble": $("#scramble").text(),
+           "duration": duration},
+    success: function(result)
+    {
+      console.log("Sent solve");
+    }
+  });
+}
+
 $(document).ready(
 function () {
     $(document).bind('keydown', function (e) {
@@ -78,6 +99,7 @@ function () {
             clearInterval(timeInterval);
             $("#scramble").text(nextScramble);
             fetchScramble();
+            postSolve();
             start = "show-time";
             return;
           }
