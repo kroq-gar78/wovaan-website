@@ -12,21 +12,21 @@ Defaults to 3x3x3.
 '''
 def scramble_cube(n = 3, moves = 25):
     assert n > 1
-    half = (n >> 1)
+    half = n >> 1
     ret = ''
-    last = [0, 0, 0] #Turns are of form [face, depth, direction]
-    opposite_last = [0, 0, 0]
-    turn = [0, 0, 0]
+    last = (0, 0, 0) #Turns are of form [face, depth, direction]
+    opposite_last = (0, 0, 0)
+    turn = (0, 0, 0)
     
     for x in range(moves):
         while turn[0] == last[0] or (turn[0] == opposite_last[0] and 
                  turn[2] == opposite_last[2] == half and (half&1) == 0):
-            turn = [randrange(6), randrange(half)+1, randrange(3)]
+            turn = (randrange(6), randrange(half)+1, randrange(3))
         
         last = turn
-        opposite_last = [turn[0]-3 if turn[0]-3 > 0 else turn[0]+3,
+        opposite_last = (turn[0]-3 if turn[0]-3 > 0 else turn[0]+3,
                         n-turn[1],
-                        0 if turn[2] == 1 else 1 if turn[2] == 0 else 2]
+                        0 if turn[2] == 1 else 1 if turn[2] == 0 else 2)
         
         if turn[1] > 2: 
             ret += str(turn[1]) 
@@ -49,7 +49,7 @@ Defaults to megaminx.
 '''
 def scramble_non_cube(
         moves = 25, 
-        faces = ['U', 'U\'', 'R++', 'R--', 'D++', 'D--'],
+        faces = ('U', 'U\'', 'R++', 'R--', 'D++', 'D--'),
         modifiers = []):
     facelen = len(faces)
     half = facelen >> 1
