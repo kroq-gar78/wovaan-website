@@ -103,18 +103,11 @@ function () {
             postSolve();
             timer_status = "show-time";
             space_released = false; // prevent repeated keydown events
-            return;
           }
-          if((timer_status == "initial" || timer_status == "show-time") && space_released == true){
+          else if((timer_status == "initial" || timer_status == "show-time") && space_released == true){
             timer_status = "ready";
-            $('#timer').text("Let go to begin");
-            return;
+            $('#timer').css("color", "#00CC00");
           }
-          /*if(timer_status == "show-time"){
-            //$('#timer').text("Hold Space");
-            timer_status = "off";
-            return;
-          }*/
         }
     });
     $(document).bind('keyup', function(e){
@@ -124,9 +117,9 @@ function () {
           $('#timer').text(toMMSSMMMM(0, 0, 0));
           timer_status = "started";
           setTimer();
-          return;
         }
         space_released = true;
+        $('#timer').css('color','inherit');
       }
     });
 
