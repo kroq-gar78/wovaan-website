@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from random import randrange, choice
-from math import ceil
+
 '''For any cube of dimensions NxNxN, returns a scramble consisting of a 
 given number of moves in WCA notation for 2x2x2-4x4x4 and prefix 
 notation for 4x4x4 and bigger.
