@@ -63,7 +63,7 @@ function fetchScramble()
     type: "POST",
     url: "/timer/updatescramble/",
     datatype: "html",
-    data: "",
+    data: {"puzzle": puzzle},
     success: function(result)
     {
       nextScramble = result;
@@ -82,7 +82,7 @@ function postSolve()
     type: "POST",
     url: "/timer/addsolve/",
     datatype: "html",
-    data: {"puzzle": "3x3x3",
+    data: {"puzzle": puzzle,
            "scramble": $("#scramble").text(),
            "duration": duration},
     success: function(result)
