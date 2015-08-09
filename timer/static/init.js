@@ -1,6 +1,7 @@
 var timeStart,
     timeElapsed,
-    start = "off",
+    timer_status = "initial",
+    space_released = true,
     timeInterval,
     nextScramble;
 
@@ -95,35 +96,37 @@ $(document).ready(
 function () {
     $(document).bind('keydown', function (e) {
       if(e.keyCode == 32){
-          if(start == "started"){
+          if(timer_status == "started"){
             clearInterval(timeInterval);
             $("#scramble").text(nextScramble);
             fetchScramble();
             postSolve();
-            start = "show-time";
+            timer_status = "show-time";
+            space_released = false; // prevent repeated keydown events
             return;
           }
-          if(start == "off"){
-            start = "held";
+          if((timer_status == "initial" || timer_status == "show-time") && space_released == true){
+            timer_status = "ready";
             $('#timer').text("Let go to begin");
             return;
           }
-          if(start == "show-time"){
-            $('#timer').text("Hold Space");
-            start = "off";
+          /*if(timer_status == "show-time"){
+            //$('#timer').text("Hold Space");
+            timer_status = "off";
             return;
-          }
+          }*/
         }
     });
     $(document).bind('keyup', function(e){
       if(e.keyCode == 32){
-        if(start == "held"){
+        if(timer_status == "ready"){
           timeStart = new Date();
           $('#timer').text(toMMSSMMMM(0, 0, 0));
-          start = "started";
+          timer_status = "started";
           setTimer();
           return;
         }
+        space_released = true;
       }
     });
 
