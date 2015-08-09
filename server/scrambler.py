@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from random import randrange, choice
-
+from math import ceil
 '''For any cube of dimensions NxNxN, returns a scramble consisting of a 
 given number of moves in WCA notation for 2x2x2-4x4x4 and prefix 
 notation for 4x4x4 and bigger.
@@ -20,7 +20,7 @@ def scramble_cube(n = 3, moves = 25):
     
     for x in range(moves):
         while turn[0] == last[0] or (turn[0] == opposite_last[0] and 
-                 turn[2] == opposite_last[2] == half and (half&1) == 0):
+                 turn[1] == opposite_last[1] == half and (n&1) == 0):
             turn = (randrange(6), randrange(half)+1, randrange(3))
         
         last = turn
@@ -28,7 +28,7 @@ def scramble_cube(n = 3, moves = 25):
                         n-turn[1],
                         0 if turn[2] == 1 else 1 if turn[2] == 0 else 2)
         
-        if turn[1] > 2: 
+        if turn[1] >= 2 and n != 4: 
             ret += str(turn[1]) 
         ret += 'FRUBLD'[turn[0]]
         if turn[1] == 2 and n == 4: 
