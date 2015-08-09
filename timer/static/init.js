@@ -82,7 +82,7 @@ function postSolve()
     type: "POST",
     url: "/timer/addsolve/",
     datatype: "html",
-    data: {"cubetype": "3x3x3",
+    data: {"puzzle": "3x3x3",
            "scramble": $("#scramble").text(),
            "duration": duration},
     success: function(result)

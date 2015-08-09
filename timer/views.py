@@ -18,11 +18,11 @@ def give_new_scramble(request):
     return HttpResponse(scramble_cube())
 
 def add_solve(request):
-    cubetype = request.POST.get('cubetype')
+    puzzle = request.POST.get('puzzle')
     scramble = request.POST.get('scramble')
     duration = request.POST.get('duration')
 
-    solve = Solve(cubetype=cubetype, scramble=scramble, duration=duration)
+    solve = Solve(puzzle=puzzle, scramble=scramble, duration=duration)
     solve.save()
 
     return HttpResponse()
