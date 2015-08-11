@@ -61,9 +61,9 @@ function fetchScramble()
 {
   $.ajax({
     type: "POST",
-    url: "/timer/updatescramble/",
+    url: "/updatescramble/",
     datatype: "html",
-    data: {"puzzle": puzzle},
+    data: {"puzzle": cubeType},
     success: function(result)
     {
       nextScramble = result;
@@ -80,9 +80,9 @@ function postSolve()
 
   $.ajax({
     type: "POST",
-    url: "/timer/addsolve/",
+    url: "/addsolve/",
     datatype: "html",
-    data: {"puzzle": puzzle,
+    data: {"puzzle": cubeType,
            "scramble": $("#scramble").text(),
            "duration": duration},
     success: function(result)
