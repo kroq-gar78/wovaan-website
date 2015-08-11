@@ -45,7 +45,6 @@ def give_new_scramble(request):
 
 @require_POST
 def add_solve(request):
-    print(request.POST)
     puzzle = request.POST.get('puzzle')
     scramble = request.POST.get('scramble')
     duration = request.POST.get('duration')

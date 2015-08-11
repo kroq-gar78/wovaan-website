@@ -1,5 +1,3 @@
-var cubeType = "3x3x3";
-
 $(document).ready(
 function () {
   $('.type').click(animateOut);
@@ -15,7 +13,7 @@ function animateOut(){
 
 function animateIn(text){
   if($('.type').css('opacity')!='1'){
-    cubeType=text.replace("[","").replace("]","");
+    puzzle=text.replace("[","").replace("]","");
     $('.type').text(text.replace("[","(").replace("]",")"));
     $('.type').animate({opacity:'1'},{queue:false});
     $('.types').animate({top:'175px',opacity:'0',height:'toggle'},{queue:false});
