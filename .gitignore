@@ -1,5 +1,5 @@
-db.sqlite3 # only allow '-f' to add, since is binary file
-
+# only allow '-f' to add, since is binary file
+db.sqlite3
 ## from: https://github.com/github/gitignore/blob/master/Python.gitignore
 # Byte-compiled / optimized / DLL files
 __pycache__/
