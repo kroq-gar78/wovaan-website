@@ -54,4 +54,3 @@ def add_solve(request):
     solve.save()
 
     return HttpResponse()
-
