@@ -14,7 +14,16 @@ var puzzle = "{{puzzle}}";
 </head>
 <body>
   <nav>
-    <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer</timer></h1>
+    <div class="container-fluid">
+      <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer&nbsp;&nbsp;</span></h1>
+      <h1 class="logo">
+        <span class="type accent-on-hover">(3x3x3)</span>
+        <span class="types accent-on-hover">[3x3x3]</span>
+        <span class="types accent-on-hover">[4x4x4]</span>
+        <span class="types accent-on-hover">[5x5x5]</span>
+        <span class="types accent-on-hover">[other]</span>
+      </h1>
+    </div>
   </nav>
   <div class="main">
     <div class="centered">
@@ -24,7 +33,7 @@ var puzzle = "{{puzzle}}";
     </div>
     <div class="past-times">
       <h1 class="logo"> Past Times </h1>
-      <ul> 
+      <ul>
         <li> 01:02:938 </li>
         <li> 01:02:938 </li>
         <li> 01:02:938 </li>
@@ -39,6 +48,7 @@ var puzzle = "{{puzzle}}";
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="{% static "init.js" %}"></script>
+  <script src="{% static "cubeTypes.js" %}"></script>
+  <script src="{% static "timer.js" %}"></script>
 </body>
 </html>

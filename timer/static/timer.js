@@ -106,7 +106,7 @@ function () {
           }
           else if((timer_status == "initial" || timer_status == "show-time") && space_released == true){
             timer_status = "ready";
-            $('#timer').css("color", "#00CC00");
+            $('#timer').css("color", "#00C853");
           }
         }
     });
