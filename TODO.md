@@ -12,6 +12,8 @@
  * Random-state scrambles
  * Different formatting notations?
    * Could require sending the scramble as JSON and have the browser interpret it
+ * Implement a proper pre-generation solution for scrambles (e.g. keep a set of at least 10 scrambles ready for each puzzle)
+   * Maybe [Celery](http://celeryproject.org/) would work?
 
 ## Far future
 
