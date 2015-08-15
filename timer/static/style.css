@@ -74,6 +74,8 @@ nav .timer{
   position:fixed;
   height:100%;
   border: solid #595959;
+  overflow-y: auto;
+  margin-top: 60px;
 }
 
 ul {
@@ -103,4 +105,8 @@ li {
 
 .accent-on-hover:hover{
   color: #00C853;
+}
+
+.times-list{
+
 }

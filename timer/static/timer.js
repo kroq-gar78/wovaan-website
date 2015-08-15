@@ -90,6 +90,7 @@ function postSolve()
       console.log("Sent solve");
     }
   });
+  load_from_db();
 }
 
 $(document).ready(
