@@ -53,3 +53,11 @@ def add_solve(request):
     solve.save()
 
     return HttpResponse()
+
+@require_POST
+def give_time_list(request):
+    timesList = Solve.objects.all()[::-1]
+    innerHTML = ""
+    for i in range(len(timesList)):
+        innerHTML = innerHTML + "<li>" + str(timesList[i].duration) + "</li>"
+    return HttpResponse(innerHTML)

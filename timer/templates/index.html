@@ -32,23 +32,15 @@ var puzzle = "{{puzzle}}";
       <p class="scramble" id="scramble">{{ initialScramble }}</p>
     </div>
     <div class="past-times">
-      <h1 class="logo"> Past Times </h1>
-      <ul>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
-        <li> 01:02:938 </li>
+      <h1> Past Times </h1>
+      <ul class="times-list">
+
       </ul>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="{% static "puzzles.js" %}"></script>
   <script src="{% static "timer.js" %}"></script>
+  <script src="{% static "db.js" %}"></script>
+  <script src="{% static "puzzles.js" %}"></script>
 </body>
 </html>
