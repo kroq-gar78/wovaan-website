@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 from random import randrange, choice
-
+from math import ceil
 '''For any cube of dimensions NxNxN, returns a scramble consisting of a 
 given number of moves in WCA notation for 2x2x2-4x4x4 and prefix 
-notation for 4x4x4 and bigger.
+notation for 4x4x4 and bigger unless otherwise specified via wca param.
 
 The same face will not be moved twice in a row and no two adjacent turns
 will result in the equivalent of a cube rotation.
 
 Defaults to 3x3x3.
 '''
-def scramble_cube(n = 3, moves = 25):
+def scramble_cube(n = 3, moves = 25, wca = None):
     assert n > 1
+    
+    if wca == None and n <= 4:
+        wca = True
+    
     half = n >> 1
     ret = ''
     last = (0, 0, 0) #Turns are of form [face, depth, direction]
@@ -28,10 +32,10 @@ def scramble_cube(n = 3, moves = 25):
                         n-turn[1],
                         0 if turn[2] == 1 else 1 if turn[2] == 0 else 2)
         
-        if turn[1] >= 2 and n != 4: 
+        if turn[1] >= 2 and not wca: 
             ret += str(turn[1]) 
         ret += 'FRUBLD'[turn[0]]
-        if turn[1] == 2 and n == 4: 
+        if turn[1] >= 2 and wca: 
             ret += 'w'
         ret += ('', '\'', '2')[turn[2]]
         ret += ' '
@@ -64,12 +68,3 @@ def scramble_non_cube(
         
         ret += faces[pot] + choice(modifiers) + " "
     return ret
-
-if __name__=='__main__':
-    import sys
-    l = len(sys.argv)
-    if l >= 2 and sys.argv[1] == 'noncube':
-        for x in range(10):
-            print(scramble_non_cube())
-    for x in range(10 if l <= 2 else int(sys.argv[2])):
-        print(scramble_cube(3 if l <= 1 else int(sys.argv[1]), 25 if l <= 3 else int(sys.argv[3])))
