@@ -56,8 +56,9 @@ def add_solve(request):
 
 @require_POST
 def give_time_list(request):
-    timesList = Solve.objects.all()[::-1]
+    puzzle = request.POST.get('puzzle')
+    timesList = Solve.objects.filter(puzzle=puzzle).order_by("-time")[:10]
     innerHTML = ""
-    for i in range(len(timesList)):
-        innerHTML = innerHTML + "<li>" + str(timesList[i].duration) + "</li>"
+    for solve in timesList:
+        innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
     return HttpResponse(innerHTML)

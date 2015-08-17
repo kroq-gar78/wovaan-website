@@ -57,7 +57,6 @@ ROOT_URLCONF = 'wovaan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': ["/home/kroq-gar78/prog/python/wovaan/server/wovaan/templates","templates"],
         'DIRS': ["wovaan/templates"],
         'APP_DIRS': True,
         'OPTIONS': {

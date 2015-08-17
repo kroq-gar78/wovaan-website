@@ -4,11 +4,11 @@ function load_from_db(){
     type: "POST",
     url: "/timer/gettimes/",
     datatype: "html",
-    data: {},
+    data: {"puzzle": puzzle},
     success: function(result)
     {
       $('.times-list').html(result);
-      console.log(result);
+      //console.log(result);
     }
   });
 }
