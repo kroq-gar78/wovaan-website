@@ -17,5 +17,7 @@ function animateIn(text){
     $('.type').text(text.replace("[","(").replace("]",")"));
     $('.type').animate({opacity:'1'},{queue:false});
     $('.types').animate({top:'175px',opacity:'0',height:'toggle'},{queue:false});
+
+    load_from_db();
   }
 }
