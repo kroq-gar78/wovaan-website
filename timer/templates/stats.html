@@ -1,0 +1,49 @@
+<html>
+<title>Stats</title>
+{% load staticfiles %}
+{% csrf_token %}
+<link type="text/css" rel="stylesheet" href="{% static "bootstrap.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "style.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "stats.css" %}">
+<body>
+  <nav>
+    <div class="container-fluid">
+      <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer&nbsp;&nbsp;</span></h1>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="rounded-section stats-times">
+          <div style="direction:ltr;">
+            <h2 class="logo"> Past Times </h2>
+            <ul class="">
+            {% for time in timesList %}
+              <li> {{ time.duration }} </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="row" style="height:70%;color:red;">
+          <div class="rounded-section">
+            <div class="chart">
+              wefwefefe
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height:30%;color:blue;padding-top:10px;">
+          <div class="rounded-section">
+            <div class="averages">
+              wefwfefwefw
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="{% static "init.js" %}"></script>
+</body>
+</html>

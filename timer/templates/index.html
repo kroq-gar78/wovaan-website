@@ -23,6 +23,7 @@ var puzzle = "{{puzzle}}";
         <span class="types accent-on-hover">[5x5x5]</span>
         <span class="types accent-on-hover">[other]</span>
       </h1>
+      <h1 class="logo stats accent-on-hover" style="float:right;" href="/timer/getstats">Stats</h1>
     </div>
   </nav>
   <div class="main">
@@ -39,6 +40,7 @@ var puzzle = "{{puzzle}}";
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="{% static "init.js" %}"></script>
   <script src="{% static "timer.js" %}"></script>
   <script src="{% static "db.js" %}"></script>
   <script src="{% static "puzzles.js" %}"></script>

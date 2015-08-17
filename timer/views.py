@@ -27,8 +27,17 @@ def timer_view(request, puzzle="3x3x3"):
     else: return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
     c['initialScramble'] = scramble
     c['puzzle'] = puzzle
+    c['timesList'] = Solve.objects.all()[::-1]
 
     return render_to_response('index.html', context=c)
+
+def stats_view(request):
+    c = {}
+    c.update(csrf(request))
+    c['timesList'] = Solve.objects.all()[::-1]
+
+    return render_to_response('stats.html', context=c)
+
 
 @require_POST
 def give_new_scramble(request):
