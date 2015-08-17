@@ -3,8 +3,8 @@
 <title>Wovaan Timer</title>
 {% load staticfiles %}
 {% csrf_token %}
-<link type="text/css" rel="stylesheet" href="{% static "bootstrap.css" %}">
-<link type="text/css" rel="stylesheet" href="{% static "style.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "res/bootstrap.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}">
 
 <!-- define puzzle -->
 <script type="text/javascript">
@@ -40,9 +40,9 @@ var puzzle = "{{puzzle}}";
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="{% static "init.js" %}"></script>
-  <script src="{% static "timer.js" %}"></script>
-  <script src="{% static "db.js" %}"></script>
-  <script src="{% static "puzzles.js" %}"></script>
+  <script src="{% static "js/init.js" %}"></script>
+  <script src="{% static "js/timer.js" %}"></script>
+  <script src="{% static "js/db.js" %}"></script>
+  <script src="{% static "js/puzzles.js" %}"></script>
 </body>
 </html>

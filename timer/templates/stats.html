@@ -2,9 +2,9 @@
 <title>Stats</title>
 {% load staticfiles %}
 {% csrf_token %}
-<link type="text/css" rel="stylesheet" href="{% static "bootstrap.css" %}">
-<link type="text/css" rel="stylesheet" href="{% static "style.css" %}">
-<link type="text/css" rel="stylesheet" href="{% static "stats.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "res/bootstrap.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "css/stats.css" %}">
 <body>
   <nav>
     <div class="container-fluid">
@@ -16,7 +16,7 @@
       <div class="col-sm-3">
         <div class="rounded-section stats-times">
           <div style="direction:ltr;">
-            <h2 class="logo"> Past Times </h2>
+            <h2 class="logo" style="margin-top:0px;"> Past Times </h2>
             <ul class="">
             {% for time in timesList %}
               <li> {{ time.duration }} </li>
@@ -26,17 +26,46 @@
         </div>
       </div>
       <div class="col-sm-9">
-        <div class="row" style="height:70%;color:red;">
-          <div class="rounded-section">
-            <div class="chart">
-              wefwefefe
+        <div class="row" style="height:70%;">
+          <div class="rounded-section" style="background-color:#555555">
+            <div class="chartdiv">
+
             </div>
           </div>
         </div>
-        <div class="row" style="height:30%;color:blue;padding-top:10px;">
-          <div class="rounded-section">
+        <div class="row" style="height:30%;padding-top:10px;">
+          <div class="rounded-section" style="background-color:#454545">
             <div class="averages">
-              wefwfefwefw
+              <h2 class="logo" style="margin-top:0px;"> Stats </h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Averages</th>
+                    <th>Best Times</th>
+                    <th>Worst Times</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>All Time</th>
+                    <td>1.1</td>
+                    <td>1.4</td>
+                    <td>1.8</td>
+                  </tr>
+                  <tr>
+                    <th>Past 10</th>
+                    <td>1.1</td>
+                    <td>1.4</td>
+                    <td>1.8</td>
+                  </tr>
+                  <tr>
+                    <th>Past 100</th>
+                    <td>1.1</td>
+                    <td>1.4</td>
+                    <td>1.8</td>
+                  </tr>
+                </tbody>
             </div>
           </div>
         </div>
@@ -44,6 +73,10 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="{% static "init.js" %}"></script>
+  <script src="{% static "js/init.js" %}"></script>
+  <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+  <script src="http://www.amcharts.com/lib/3/serial.js"></script>
+  <script src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
+  <script src="{% static "js/stats.js" %}"></script>
 </body>
 </html>

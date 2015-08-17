@@ -1,21 +1,21 @@
 @font-face {
     font-family: bigjohn;
-    src: url("BIGJOHN.otf") format("opentype");
+    src: url("../res/BIGJOHN.otf") format("opentype");
 }
 
 @font-face {
     font-family: slimjoe;
-    src: url("slimjoe.otf") format("opentype");
+    src: url("../res/slimjoe.otf") format("opentype");
 }
 
 @font-face {
     font-family: lekton;
-    src: url("lekton.regular.ttf");
+    src: url("../res/lekton.regular.ttf");
 }
 
 @font-face {
     font-family: oslo-ii;
-    src: url("oslo-ii.regular.ttf");
+    src: url("../res/oslo-ii.regular.ttf");
 }
 
 body, html{

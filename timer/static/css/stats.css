@@ -19,6 +19,3 @@
   padding: 20px;
   height:100%;
 }
-
-::-webkit-scrollbar-track-piece  { background: red}
-::-webkit-scrollbar-thumb        { /* 5 */ }
