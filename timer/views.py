@@ -37,6 +37,26 @@ def stats_view(request):
     c = {}
     c.update(csrf(request))
     c['timesList'] = Solve.objects.all()[::-1]
+    average = {}
+    average['all'] = 0
+    average['pastTen'] = 0
+    average['pastHund'] = 0
+    for counter,solve in enumerate(Solve.objects.all().order_by("-time")):
+        if(counter<10):
+            average['pastTen'] += solve.duration
+            average['pastHund'] += solve.duration
+            average['all'] += solve.duration
+        elif(counter<100):
+            average['pastHund'] += solve.duration
+            average['all'] += solve.duration
+        else:
+            average['all'] += solve.duration
+
+    average['pastTen'] = round(average['pastTen']/10,3)
+    average['pastHund'] = round(average['pastHund']/min(100,len(Solve.objects.all())),3)
+    average['all'] = round(average['all']/len(Solve.objects.all()),3)
+
+    c['averages'] = average
 
     return render_to_response('stats.html', context=c)
 
