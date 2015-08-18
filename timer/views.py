@@ -5,6 +5,9 @@ from django.shortcuts import render, render_to_response
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 import re
 
@@ -27,7 +30,6 @@ def timer_view(request, puzzle="3x3x3"):
     else: return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
     c['initialScramble'] = scramble
     c['puzzle'] = puzzle
-    c['timesList'] = Solve.objects.all()[::-1]
 
     return render_to_response('index.html', context=c)
 
@@ -71,3 +73,8 @@ def give_time_list(request):
     for solve in timesList:
         innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
     return HttpResponse(innerHTML)
+
+
+def give_json_times_data(request):
+    solves = [solve.to_JSON() for solve in Solve.objects.all().order_by("time")]
+    return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")

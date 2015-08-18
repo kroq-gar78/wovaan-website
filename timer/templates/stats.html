@@ -9,6 +9,7 @@
   <nav>
     <div class="container-fluid">
       <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer&nbsp;&nbsp;</span></h1>
+      <h1 class="logo timer accent-on-hover" style="float:right;" href="/timer/timer/">Timer</h1>
     </div>
   </nav>
   <div class="container">
@@ -27,10 +28,7 @@
       </div>
       <div class="col-sm-9">
         <div class="row" style="height:70%;">
-          <div class="rounded-section" style="background-color:#555555">
-            <div class="chartdiv">
-
-            </div>
+          <div class="rounded-section" style="background-color:#555555" id="chartdiv">
           </div>
         </div>
         <div class="row" style="height:30%;padding-top:10px;">
@@ -74,9 +72,9 @@
   </div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="{% static "js/init.js" %}"></script>
-  <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
-  <script src="http://www.amcharts.com/lib/3/serial.js"></script>
-  <script src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
+  <script src="{% static "res/amcharts/amcharts.js" %}"></script>
+  <script src="{% static "res/amcharts/serial.js" %}"></script>
+  <script src="{% static "res/amcharts/themes/dark.js" %}"></script>
   <script src="{% static "js/stats.js" %}"></script>
 </body>
 </html>
