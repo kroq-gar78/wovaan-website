@@ -39,29 +39,29 @@
                 <thead>
                   <tr>
                     <th></th>
-                    <th>All time</th>
-                    <th>Past Ten</th>
+                    <th>Past Five</th>
+                    <th>Past Twelve</th>
                     <th>Past Hundred</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th>Averages</th>
-                    <td>{{ averages.all }}</td>
-                    <td>{{ averages.pastTen }}</td>
-                    <td>{{ averages.pastHund }}</td>
+                    <td>{{ averages.five }}</td>
+                    <td>{{ averages.twelve }}</td>
+                    <td>{{ averages.hundred }}</td>
                   </tr>
                   <tr>
                     <th>Best</th>
-                    <td>1.1</td>
-                    <td>1.4</td>
-                    <td>1.8</td>
+                    <td>{{ stats.bestFive }}</td>
+                    <td>{{ stats.bestTwelve }}</td>
+                    <td>{{ stats.bestHundred }}</td>
                   </tr>
                   <tr>
                     <th>Worst</th>
-                    <td>1.1</td>
-                    <td>1.4</td>
-                    <td>1.8</td>
+                    <td>{{ stats.worstFive }}</td>
+                    <td>{{ stats.worstTwelve }}</td>
+                    <td>{{ stats.worstHundred }}</td>
                   </tr>
                 </tbody>
             </div>

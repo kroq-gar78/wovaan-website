@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Max, Avg, Min
 import json
 
 import re
@@ -37,26 +38,24 @@ def stats_view(request):
     c = {}
     c.update(csrf(request))
     c['timesList'] = Solve.objects.all()[::-1]
-    average = {}
-    average['all'] = 0
-    average['pastTen'] = 0
-    average['pastHund'] = 0
-    for counter,solve in enumerate(Solve.objects.all().order_by("-time")):
-        if(counter<10):
-            average['pastTen'] += solve.duration
-            average['pastHund'] += solve.duration
-            average['all'] += solve.duration
-        elif(counter<100):
-            average['pastHund'] += solve.duration
-            average['all'] += solve.duration
-        else:
-            average['all'] += solve.duration
 
-    average['pastTen'] = round(average['pastTen']/10,3)
-    average['pastHund'] = round(average['pastHund']/min(100,len(Solve.objects.all())),3)
-    average['all'] = round(average['all']/len(Solve.objects.all()),3)
+    stats = {}
+    stats['bestFive'] = Solve.objects.all()[:5].aggregate(Min('duration'))['duration__min']
+    stats['bestTwelve'] = Solve.objects.all()[:12].aggregate(Min('duration'))['duration__min']
+    stats['bestHundred'] = Solve.objects.all()[:100].aggregate(Min('duration'))['duration__min']
+    stats['worstFive'] = Solve.objects.all()[:5].aggregate(Max('duration'))['duration__max']
+    stats['worstTwelve'] = Solve.objects.all()[:12].aggregate(Max('duration'))['duration__max']
+    stats['worstHundred'] = Solve.objects.all()[:5].aggregate(Max('duration'))['duration__max']
+
+    average = {}
+    average['five'] = round(Solve.objects.all()[:5].aggregate(Avg('duration'))['duration__avg'],3)
+    average['twelve'] = round(Solve.objects.all()[:12].aggregate(Avg('duration'))['duration__avg'],3)
+    average['hundred'] = round(Solve.objects.all()[:100].aggregate(Avg('duration'))['duration__avg'],3)
+
+
 
     c['averages'] = average
+    c['stats'] = stats
 
     return render_to_response('stats.html', context=c)
 

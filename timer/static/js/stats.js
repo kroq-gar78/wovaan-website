@@ -65,7 +65,7 @@ $(document).ready(function(){
               "parseDates": true,
               "dashLength": 1,
               "minorGridEnabled": true,
-              "minPeriod": "mm"
+              "minPeriod": "fff"
           },
           "export": {
               "enabled": true
