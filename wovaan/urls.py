@@ -22,6 +22,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^timer/?', include('timer.urls')),
-    url(r'^/?$', 'timer.views.timer_view'),
+    url(r'^$', 'timer.views.timer_view'),
     #url(r'^updatescramble/?$', 'timer.give_new_scramble'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
