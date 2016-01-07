@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 import re
 
 from wovaan.scrambler import scramble_cube
-from .models import Solve
+from .models import Solve, Puzzle
 
 def timer_view(request, puzzle="3x3x3"):
     if puzzle is None: puzzle = "3x3x3" # TODO: figure out why 'puzzle' keeps matching to nothing
@@ -21,10 +21,10 @@ def timer_view(request, puzzle="3x3x3"):
 
     scramble = ""
     # TODO: make class/enums for puzzles
-    if puzzle == "3x3x3": scramble = scramble_cube()
-    elif puzzle == "4x4x4": scramble = scramble_cube(n=4, moves=40)
-    elif puzzle == "5x5x5": scramble = scramble_cube(n=5, moves=60)
-    else: return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
+    try:
+        scramble = Puzzle.objects.get(name=puzzle).getScramble()
+    except:
+        return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
     c['initialScramble'] = scramble
     c['puzzle'] = puzzle
 
@@ -36,10 +36,11 @@ def give_new_scramble(request):
     puzzle = puzzle.lower()
     scramble = ""
     # TODO: make class/enums for puzzles
-    if puzzle == "3x3x3": scramble = scramble_cube()
-    elif puzzle == "4x4x4": scramble = scramble_cube(n=4, moves=40)
-    elif puzzle == "5x5x5": scramble = scramble_cube(n=5, moves=60)
-    else: return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
+    try:
+        scramble = Puzzle.objects.get(name=puzzle).getScramble()
+    except:
+        print(puzzle)
+        return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
 
     return HttpResponse(scramble)
 

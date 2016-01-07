@@ -14,5 +14,13 @@
       "size": 4,
       "scrambler": "cubic"
     }
+  },
+  {
+    "model": "timer.Puzzle",
+    "fields": {
+      "name": "5x5x5",
+      "size": 5,
+      "scrambler": "cubic"
+    }
   }
 ]

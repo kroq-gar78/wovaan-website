@@ -1,6 +1,6 @@
 from django.db import models
 
-from wovaan import scrambler
+from wovaan.scrambler import scramble_cube
 
 class Solve(models.Model):
     puzzle = models.CharField(max_length=10)
@@ -23,6 +23,10 @@ class Puzzle(models.Model):
             # TODO implement non-cubic scramblers
             raise NotImplementedError("*minx scramblers not yet implemented")
         elif(self.scrambler == "cubic"):
-            return lambda: scramble_cube(self.size, moves=20)
+            n_moves = {3: 20, 4: 40, 5: 60}
+            return lambda: scramble_cube(self.size, moves=n_moves[self.size])
         else:
             raise NotImplementedError("Non-cubic scramblers not yet implemented")
+
+    def getScramble(self):
+        return self.getScrambler()()
