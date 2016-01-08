@@ -12,6 +12,9 @@ class Solve(models.Model):
 
     get_latest_by = "date"
 
+    def __str__(self):
+        return '%s %.2fs' % (str(self.puzzle), self.duration)
+
 class Puzzle(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
     size = models.PositiveIntegerField(default=3)
@@ -32,3 +35,6 @@ class Puzzle(models.Model):
 
     def getScramble(self):
         return self.getScrambler()()
+
+    def __str__(self):
+        return self.name
