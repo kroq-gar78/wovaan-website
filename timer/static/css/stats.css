@@ -1,0 +1,21 @@
+.stats-times{
+  height: 100%;
+  direction: rtl;
+  overflow-y: auto;
+}
+
+.container{
+  margin-top:   30px;
+  height: -moz-calc(100% - 90px);
+  height: -webkit-calc(100% - 90px);
+  height: -o-calc(100% - 55px);
+  height: calc(100% - 55px);
+  padding-top:60px;
+}
+
+.rounded-section{
+  border-radius:  25px;
+  background-color: #353535;
+  padding: 20px;
+  height:100%;
+}

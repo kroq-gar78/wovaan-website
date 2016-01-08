@@ -7,4 +7,7 @@ urlpatterns = [
     url(r'^updatescramble/?$', views.give_new_scramble),
     url(r'^addsolve/?$', views.add_solve),
     url(r'^gettimes/?$', views.give_time_list),
+    url(r'^getstats/?$', views.stats_view),
+    url(r'^getjsontimesdata/?$', views.give_json_times_data),
+    url(r'^timer/?$', views.timer_view)
 ]

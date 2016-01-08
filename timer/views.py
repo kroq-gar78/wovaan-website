@@ -5,6 +5,10 @@ from django.shortcuts import render, render_to_response
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Max, Avg, Min
+import json
 
 import re
 
@@ -29,6 +33,32 @@ def timer_view(request, puzzle="3x3x3"):
     c['puzzle'] = puzzle
 
     return render_to_response('index.html', context=c)
+
+def stats_view(request):
+    c = {}
+    c.update(csrf(request))
+    c['timesList'] = Solve.objects.all()[::-1]
+
+    stats = {}
+    stats['bestFive'] = Solve.objects.all()[:5].aggregate(Min('duration'))['duration__min']
+    stats['bestTwelve'] = Solve.objects.all()[:12].aggregate(Min('duration'))['duration__min']
+    stats['bestHundred'] = Solve.objects.all()[:100].aggregate(Min('duration'))['duration__min']
+    stats['worstFive'] = Solve.objects.all()[:5].aggregate(Max('duration'))['duration__max']
+    stats['worstTwelve'] = Solve.objects.all()[:12].aggregate(Max('duration'))['duration__max']
+    stats['worstHundred'] = Solve.objects.all()[:5].aggregate(Max('duration'))['duration__max']
+
+    average = {}
+    average['five'] = round(Solve.objects.all()[:5].aggregate(Avg('duration'))['duration__avg'],3)
+    average['twelve'] = round(Solve.objects.all()[:12].aggregate(Avg('duration'))['duration__avg'],3)
+    average['hundred'] = round(Solve.objects.all()[:100].aggregate(Avg('duration'))['duration__avg'],3)
+
+
+
+    c['averages'] = average
+    c['stats'] = stats
+
+    return render_to_response('stats.html', context=c)
+
 
 @require_POST
 def give_new_scramble(request):
@@ -63,3 +93,8 @@ def give_time_list(request):
     for solve in timesList:
         innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
     return HttpResponse(innerHTML)
+
+
+def give_json_times_data(request):
+    solves = [solve.to_JSON() for solve in Solve.objects.all().order_by("time")]
+    return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")

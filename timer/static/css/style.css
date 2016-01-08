@@ -1,29 +1,31 @@
 @font-face {
     font-family: bigjohn;
-    src: url("BIGJOHN.otf") format("opentype");
+    src: url("../res/BIGJOHN.otf") format("opentype");
 }
 
 @font-face {
     font-family: slimjoe;
-    src: url("slimjoe.otf") format("opentype");
+    src: url("../res/slimjoe.otf") format("opentype");
 }
 
 @font-face {
     font-family: lekton;
-    src: url("lekton.regular.ttf");
+    src: url("../res/lekton.regular.ttf");
 }
 
 @font-face {
     font-family: oslo-ii;
-    src: url("oslo-ii.regular.ttf");
+    src: url("../res/oslo-ii.regular.ttf");
 }
 
 body, html{
   font-family: slimjoe !important ;
   overflow-x: hidden;
+  overflow-y: hidden;
   margin: 0px;
-  background-color: #212121;
+  background-color: #292929;
   color: #f9f9f9;
+  height:100%;
 }
 
 nav{
@@ -105,8 +107,13 @@ li {
 
 .accent-on-hover:hover{
   color: #00C853;
+  cursor: pointer;
 }
 
 .times-list{
 
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none; color: #000000;
 }

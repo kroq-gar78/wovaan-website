@@ -1,0 +1,80 @@
+<html>
+<title>Stats</title>
+{% load staticfiles %}
+{% csrf_token %}
+<link type="text/css" rel="stylesheet" href="{% static "res/bootstrap.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}">
+<link type="text/css" rel="stylesheet" href="{% static "css/stats.css" %}">
+<body>
+  <nav>
+    <div class="container-fluid">
+      <h1 class="logo"><span class="wovaan">Wovaan</span><span class="timer">Timer&nbsp;&nbsp;</span></h1>
+      <h1 class="logo timer accent-on-hover" style="float:right;" href="/timer/timer/">Timer</h1>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="rounded-section stats-times">
+          <div style="direction:ltr;">
+            <h2 class="logo" style="margin-top:0px;"> Past Times </h2>
+            <ul class="">
+            {% for time in timesList %}
+              <li> {{ time.duration }} </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="row" style="height:70%;">
+          <div class="rounded-section" style="background-color:#555555" id="chartdiv">
+          </div>
+        </div>
+        <div class="row" style="height:30%;padding-top:10px;">
+          <div class="rounded-section" style="background-color:#454545">
+            <div class="averages">
+              <h2 class="logo" style="margin-top:0px;"> Stats </h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Past Five</th>
+                    <th>Past Twelve</th>
+                    <th>Past Hundred</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Averages</th>
+                    <td>{{ averages.five }}</td>
+                    <td>{{ averages.twelve }}</td>
+                    <td>{{ averages.hundred }}</td>
+                  </tr>
+                  <tr>
+                    <th>Best</th>
+                    <td>{{ stats.bestFive }}</td>
+                    <td>{{ stats.bestTwelve }}</td>
+                    <td>{{ stats.bestHundred }}</td>
+                  </tr>
+                  <tr>
+                    <th>Worst</th>
+                    <td>{{ stats.worstFive }}</td>
+                    <td>{{ stats.worstTwelve }}</td>
+                    <td>{{ stats.worstHundred }}</td>
+                  </tr>
+                </tbody>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="{% static "js/init.js" %}"></script>
+  <script src="{% static "res/amcharts/amcharts.js" %}"></script>
+  <script src="{% static "res/amcharts/serial.js" %}"></script>
+  <script src="{% static "res/amcharts/themes/dark.js" %}"></script>
+  <script src="{% static "js/stats.js" %}"></script>
+</body>
+</html>
