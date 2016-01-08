@@ -94,11 +94,6 @@ def give_time_list(request):
         innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
     return HttpResponse(innerHTML)
 
-
 def give_json_times_data(request):
-    # solves = [solve.to_JSON() for solve in Solve.objects.all().order_by("date")]
-    # return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")
-    # return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")
-
-    return JsonResponse(serializers.serialize('json', Solve.objects.all().order_by("date"),
-                                              fields=('date', 'duration', 'scramble', 'puzzle')))
+    data = Solve.objects.all().order_by("date").values('date', 'duration', 'scramble', 'puzzle')
+    return JsonResponse(list(data), safe=False)
