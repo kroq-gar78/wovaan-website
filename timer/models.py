@@ -5,7 +5,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from wovaan.scrambler import scramble_cube
 
 class Solve(models.Model):
-    puzzle = models.CharField(max_length=10)
+    puzzle = models.ForeignKey('Puzzle')
     scramble = models.CharField(max_length=50)
     duration = models.DecimalField(max_digits=7, decimal_places=3)
     date = models.DateTimeField(auto_now_add=True) # permanently set date/time of creation

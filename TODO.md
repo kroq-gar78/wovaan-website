@@ -9,7 +9,7 @@
 
 ## Other
 
- * Delete times
+ * Add option to delete times
  * Get a better/{more compact} way to switch puzzles
  * Implement users (only use oauth?)
  * Statistics page ((Ao 5, 12), mean 100, past `n` days) (kind of done)

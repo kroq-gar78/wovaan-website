@@ -80,7 +80,7 @@ def add_solve(request):
     scramble = request.POST.get('scramble')
     duration = request.POST.get('duration')
 
-    solve = Solve(puzzle=puzzle, scramble=scramble, duration=duration)
+    solve = Solve(puzzle=Puzzle.objects.get(pk=puzzle), scramble=scramble, duration=duration)
     solve.save()
 
     return HttpResponse()
