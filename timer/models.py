@@ -11,7 +11,7 @@ class Solve(models.Model):
     get_latest_by = "time"
 
 class Puzzle(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, primary_key=True)
     size = models.PositiveIntegerField(default=3)
     scrambler = models.CharField(max_length=20)
 

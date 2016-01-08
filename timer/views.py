@@ -22,7 +22,7 @@ def timer_view(request, puzzle="3x3x3"):
     scramble = ""
     # TODO: make class/enums for puzzles
     try:
-        scramble = Puzzle.objects.get(name=puzzle).getScramble()
+        scramble = Puzzle.objects.get(pk=puzzle).getScramble()
     except:
         return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
     c['initialScramble'] = scramble
@@ -37,7 +37,7 @@ def give_new_scramble(request):
     scramble = ""
     # TODO: make class/enums for puzzles
     try:
-        scramble = Puzzle.objects.get(name=puzzle).getScramble()
+        scramble = Puzzle.objects.get(pk=puzzle).getScramble()
     except:
         print(puzzle)
         return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
