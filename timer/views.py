@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render, render_to_response
@@ -88,7 +88,7 @@ def add_solve(request):
 @require_POST
 def give_time_list(request):
     puzzle = request.POST.get('puzzle')
-    timesList = Solve.objects.filter(puzzle=puzzle).order_by("-time")[:10]
+    timesList = Solve.objects.filter(puzzle=puzzle).order_by("-date")[:10]
     innerHTML = ""
     for solve in timesList:
         innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
@@ -96,5 +96,9 @@ def give_time_list(request):
 
 
 def give_json_times_data(request):
-    solves = [solve.to_JSON() for solve in Solve.objects.all().order_by("time")]
-    return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")
+    # solves = [solve.to_JSON() for solve in Solve.objects.all().order_by("date")]
+    # return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")
+    # return HttpResponse(json.dumps(solves, cls=DjangoJSONEncoder),content_type="application/json")
+
+    return JsonResponse(serializers.serialize('json', Solve.objects.all().order_by("date"),
+                                              fields=('date', 'duration', 'scramble', 'puzzle')))
