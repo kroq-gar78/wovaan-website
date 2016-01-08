@@ -9,7 +9,6 @@
 
 ## Other
 
- * Replace calls to 'to_JSON' in Solve model with normal serialization
  * Get a better/{more compact} way to switch puzzles
  * Implement users (only use oauth?)
  * Statistics page ((Ao 5, 12), mean 100, past `n` days) (kind of done)
