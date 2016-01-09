@@ -8,8 +8,9 @@ from django.views.decorators.http import require_POST
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Max, Avg, Min
-import json
 
+import csv
+import datetime
 import re
 
 from wovaan.scrambler import scramble_cube
@@ -97,7 +98,7 @@ def give_time_list(request):
 
 # TODO: determine if this should be a POST or GET
 def give_json_times_data(request):
-    data = Solve.objects.all().order_by("date").values('date', 'duration', 'scramble', 'puzzle')
+    data = Solve.objects.all().order_by("date").values('id', 'date', 'duration', 'scramble', 'puzzle')
     return JsonResponse(list(data), safe=False)
 
 # NOTE: untested
@@ -106,3 +107,19 @@ def delete_solve(request):
     id = request.POST.get('id')
     Solve.objects.get(id=id).delete()
     return HttpResponse()
+
+# TODO: unimplemented, and not sure if should be GET or POST
+def export_csv(request):
+    field_order = ['id','puzzle','date','duration','scramble'] # TODO: make this customizable
+    data = Solve.objects.all().order_by("date").values(*field_order)
+
+    # from https://docs.djangoproject.com/en/1.9/howto/outputting-csv/
+    out_fname = "times_export_%s.csv" % datetime.datetime.now().isoformat() # TODO: need a better format, and use user's timezone
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = "attachment; filename=\"%s\"" % out_fname
+
+    with csv.writer(response) as writer: # is this okay or good practice?
+        writer.writerow(field_order)
+        for solve in data:
+            writer.writerow([solve[x] for x in field_order])
+        return response
