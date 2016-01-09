@@ -3,9 +3,7 @@
  * When puzzle changed, the cached scramble is still from the old puzzle
    * Maybe make a synchronous `fetchScramble` call, and then get two scrambles?
  * The scramble doesn't immediately change when the puzzle is changed
- * Inconsistent terminology of the datetime a solve was submitted. Should it be "date" or "time" ?
- * Add a data migration to automatically load the initial data
-   * Also collapse previous migrations
+ * Collapse previous migrations
 
 ## Other
 
