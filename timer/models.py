@@ -1,6 +1,4 @@
 from django.db import models
-import json
-from django.core.serializers.json import DjangoJSONEncoder
 
 from wovaan.scrambler import scramble_cube
 

@@ -26,7 +26,7 @@ def timer_view(request, puzzle="3x3x3"):
     scramble = ""
     # TODO: make class/enums for puzzles
     try:
-        scramble = Puzzle.objects.get(pk=puzzle).getScramble()
+        scramble = Puzzle.objects.get(name=puzzle).getScramble()
     except:
         return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
     c['initialScramble'] = scramble
@@ -67,7 +67,7 @@ def give_new_scramble(request):
     scramble = ""
     # TODO: make class/enums for puzzles
     try:
-        scramble = Puzzle.objects.get(pk=puzzle).getScramble()
+        scramble = Puzzle.objects.get(name=puzzle).getScramble()
     except:
         print(puzzle)
         return HttpResponseBadRequest("Field 'puzzle' = '%s' unknown or not specified" % puzzle)
@@ -85,6 +85,7 @@ def add_solve(request):
 
     return HttpResponse()
 
+# TODO: combine with `give_json_times_data` ?
 @require_POST
 def give_time_list(request):
     puzzle = request.POST.get('puzzle')
@@ -94,6 +95,14 @@ def give_time_list(request):
         innerHTML = innerHTML + "<li>" + str(solve.duration) + "</li>"
     return HttpResponse(innerHTML)
 
+# TODO: determine if this should be a POST or GET
 def give_json_times_data(request):
     data = Solve.objects.all().order_by("date").values('date', 'duration', 'scramble', 'puzzle')
     return JsonResponse(list(data), safe=False)
+
+# NOTE: untested
+@require_POST
+def delete_solve(request):
+    id = request.POST.get('id')
+    Solve.objects.get(id=id).delete()
+    return HttpResponse()
